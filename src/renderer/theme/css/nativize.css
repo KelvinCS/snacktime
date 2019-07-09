@@ -1,0 +1,75 @@
+*,
+*::before,
+*::after {
+  cursor: default; /* use default cursor */
+  -webkit-user-select: none; /* disable selection */
+  -webkit-user-drag: none; /* disable dragging */
+  outline: none; /* remove autofocus glow */
+}
+
+html {
+  font-family: sans-serif;
+  height: 100%; /* Prevent rubber-band scrolling of the whole "page" */
+  width: 100%;
+  overflow: hidden;
+  cursor: default; /* use default cursor */
+}
+
+body {
+  overflow: auto;
+  overflow-x: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+/* Text Selection */
+
+form,
+input,
+optgroup,
+select,
+textarea {
+  -webkit-user-select: text; /* enable text selection in forms */
+}
+
+/* enable text selection in pre, code and where permitted */
+.is-selectable,
+pre,
+code {
+  -webkit-user-select: auto;
+  cursor: auto;
+}
+
+/* Buttons */
+
+button {
+  cursor: default; /* use default cursor */
+}
+
+/* Internal links - shouldn't look like links */
+
+a {
+  cursor: pointer;
+  text-decoration: none;
+  border-bottom: 1px dashed;
+  outline: none;
+}
+
+/* External links - New window (target) + external links */
+
+a[target],
+a[href^="https://"],
+a[href^="http://"] {
+  border-bottom: 1px solid;
+}
+
+a:hover,
+a:focus {
+  border-bottom: none;
+}
+
+/* Images */
+
+img {
+  -webkit-user-drag: none; /* disable dragging */
+}
