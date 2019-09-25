@@ -1,9 +1,6 @@
-/* eslint-disable no-console */
-/* eslint-disable no-unused-vars */
 import React from 'react';
-import Palette from 'react-palette';
-import hexToRgba from 'hex-to-rgba';
-import { StyledComponent } from 'styled-components';
+import ImagePalette from '../ImagePalette';
+
 import {
   Container, Title, Year, Banner,
 } from './atoms';
@@ -15,18 +12,24 @@ type Props = {
   onClick?: () => void,
 };
 
-const getCustomBoxShadow = (hexColor) => {
-  console.log(hexColor);
+// const getBoxShadow = (r, g, b) => `0 10px 25px rgba(${r}, ${g}, ${b}, 0.3)`;
 
-  return `0 10px 25px ${hexToRgba(hexColor || '#000', 0.3)}`;
-};
+function getPaletteBoxShadow(palette) {
+  if (palette.Vibrant) {
+    // const { r, g, b } = palette.Vibrant;
+    // return getBoxShadow(r, g, b);
+  }
+  // return getBoxShadow(0, 0, 0);
+}
 
 const MovieCard = ({
-  cover, year, title, onClick,
+  onClick, cover, title, year,
 }: Props) => (
   <Container onClick={onClick}>
-    {/* <Palette image={cover}>{palette => <img src={cover} />}</Palette> */}
-    <Banner src={cover} />
+    <ImagePalette src={cover}>
+      {({ palette }) => <Banner src={cover} style={{ boxShadow: getPaletteBoxShadow(palette) }} />}
+    </ImagePalette>
+
     <Title>{title}</Title>
     <Year>{year}</Year>
   </Container>

@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 import { put } from 'redux-saga/effects';
 import { popcorntime } from '../services/api';
 
-const { getPage } = popcorntime.movie;
+const { getPage } = popcorntime.anime;
 
-const moviesLogic = kea({
+const animesLogic = kea({
   actions: () => ({
-    fetchMovies: (page: number, options?) => ({ page, options }),
-    setMovies: movies => ({ movies }),
+    fetchAnimes: (page: number, options?) => ({ page, options }),
+    setAnimes: animes => ({ animes }),
   }),
 
   reducers: ({ actions }) => ({
@@ -17,15 +17,15 @@ const moviesLogic = kea({
       null,
       PropTypes.number,
       {
-        [actions.fetchMovies]: (_, payload) => payload.page,
+        [actions.fetchAnimes]: (_, payload) => payload.page,
       },
     ],
 
-    movies: [
+    animes: [
       [],
       PropTypes.array,
       {
-        [actions.setMovies]: (_, payload) => payload.movies,
+        [actions.setAnimes]: (_, payload) => payload.animes,
       },
     ],
 
@@ -33,28 +33,28 @@ const moviesLogic = kea({
       false,
       PropTypes.bool,
       {
-        [actions.fetchMovies]: () => true,
-        [actions.setMovies]: () => false,
+        [actions.fetchAnimes]: () => true,
+        [actions.setAnimes]: () => false,
       },
     ],
   }),
 
   takeLatest: ({ actions, workers }) => ({
-    [actions.fetchMovies]: workers.fetchMovies,
+    [actions.fetchAnimes]: workers.fetchAnimes,
   }),
 
   workers: {
-    * fetchMovies(action) {
+    * fetchAnimes(action) {
       const { page, options } = action.payload;
-      const { setMovies } = this.actions;
+      const { setAnimes } = this.actions;
 
       const response = yield getPage(page, options);
 
       if (response.ok) {
-        yield put(setMovies(response.data));
+        yield put(setAnimes(response.data));
       }
     },
   },
 });
 
-export default moviesLogic;
+export default animesLogic;

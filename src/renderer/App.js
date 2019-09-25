@@ -1,9 +1,10 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
 import { hot } from 'react-hot-loader/root';
 import { ThemeProvider } from 'styled-components';
 import Home from './containers/Home';
+import Player from './containers/Player';
 import theme from './theme';
 
 type Props = {
@@ -14,7 +15,11 @@ const App = ({ history }: Props) => (
   <div className="App">
     <ThemeProvider theme={theme}>
       <ConnectedRouter history={history}>
-        <Route exact path="/" component={Home} />
+        <>
+          <Redirect from="/" exact to="/movies" />
+          <Route path="/" component={Home} />
+          <Route path="/player" component={Player}></Route>
+        </>
       </ConnectedRouter>
     </ThemeProvider>
   </div>

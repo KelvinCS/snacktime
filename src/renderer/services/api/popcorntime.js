@@ -5,6 +5,8 @@ import {
   AnimeInfo,
   ShowInfo,
   PopcorntimeStatus,
+  Anime,
+  Show,
 } from '../../config/types';
 
 const api = create({
@@ -17,7 +19,10 @@ const movie = {
     return api.get('/movies');
   },
 
-  getPage(page: number, options: FilmRequestOptions = {}): Promise<{ data: MovieInfo[] }> {
+  getPage(
+    page: number,
+    options: FilmRequestOptions = {},
+  ): Promise<{ data: MovieInfo[] }> {
     return api.get(`/movies/${page}`, { ...options });
   },
 
@@ -35,7 +40,10 @@ const anime = {
     return api.get('/animes');
   },
 
-  getPage(page: number, options: FilmRequestOptions = {}): Promise<{ data: AnimeInfo[] }> {
+  getPage(
+    page: number,
+    options: FilmRequestOptions = {},
+  ): Promise<{ data: Anime[] }> {
     return api.get(`/animes/${page}`, { ...options });
   },
 
@@ -53,7 +61,10 @@ const show = {
     return api.get('/shows');
   },
 
-  getPage(page: number, options: FilmRequestOptions = {}): Promise<{ data: ShowInfo[] }> {
+  getPage(
+    page: number,
+    options: FilmRequestOptions = {},
+  ): Promise<{ data: Show[] }> {
     return api.get(`/shows/${page}`, { ...options });
   },
 

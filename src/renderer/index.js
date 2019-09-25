@@ -6,6 +6,9 @@ import App from './App';
 
 import './theme/css/normalize.css';
 import './theme/css/nativize.css';
+import './theme/css/global.css';
+
+// import styled from 'styled-components';
 
 // import registerServiceWorker from './registerServiceWorker';
 

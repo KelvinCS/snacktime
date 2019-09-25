@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import Rx from 'rxjs';
+import * as Rx from 'rxjs';
 
 class EventEmitter {
   constructor() {

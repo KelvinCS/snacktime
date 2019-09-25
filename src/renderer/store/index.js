@@ -1,7 +1,8 @@
+/* eslint-disable no-console */
 import { ipcRenderer } from 'electron';
 import { compose, Store } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { connectRouter } from 'connected-react-router';
+import { connectRouter, routerMiddleware } from 'connected-react-router';
 import { createBrowserHistory } from 'history';
 import { getStore } from 'kea';
 import sagaPlugin from 'kea-saga';
@@ -21,7 +22,9 @@ const ipcBridge = () => next => async (action) => {
  * @param store Redux Store
  */
 const startMainProcessBridging = (store: Store) => {
-  ipcRenderer.on('redux-event', (_, action) => store.dispatch(action));
+  ipcRenderer.on('redux-event', (_, action) => {
+    store.dispatch(action);
+  });
 };
 
 const configureStore = (preloadedState): Store => getStore({
@@ -29,7 +32,7 @@ const configureStore = (preloadedState): Store => getStore({
   paths: ['kea', 'scenes'],
   reducers: { router: connectRouter(history) },
   preloadedState,
-  middleware: [ipcBridge],
+  middleware: [routerMiddleware(history), ipcBridge],
   compose: composeWithDevTools || compose,
   enhancers: [],
 });

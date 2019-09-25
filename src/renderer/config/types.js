@@ -1,6 +1,12 @@
 /* eslint no-undef: ['off'] */
 
-export type FilmSortOption = 'name' | 'rating' | 'released' | 'trending' | 'updated' | 'year';
+export type FilmSortOption =
+  | 'name'
+  | 'rating'
+  | 'released'
+  | 'trending'
+  | 'updated'
+  | 'year';
 export type FilmOrderOption = 1 | -1;
 export type FilmGenre =
   | 'all'
@@ -213,6 +219,51 @@ export type AnimeInfo = AnimeShowInfo & {
         url: string,
       },
     },
+  },
+};
+
+export type Anime = {
+  _id: string,
+  mal_id: string,
+  title: string,
+  year: string,
+  slug: string,
+  type: string,
+  genres: FilmGenre[],
+  images: {
+    poster: string,
+    fanart: string,
+    banner: string,
+  },
+  rating: {
+    percentage: number,
+    watching: number,
+    votes: number,
+    loved: number,
+    hated: number,
+  },
+  num_seasons: number,
+};
+
+export type Show = {
+  _id: string,
+  imdb_id: string,
+  tvdb_id: string,
+  title: string,
+  year: string,
+  slug: string,
+  num_seasons: number,
+  images: {
+    poster: string,
+    fanart: string,
+    banner: string,
+  },
+  rating: {
+    percentage: number,
+    watching: number,
+    votes: number,
+    loved: number,
+    hated: number,
   },
 };
 

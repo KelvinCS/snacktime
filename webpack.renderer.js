@@ -1,14 +1,15 @@
-// module.exports = () => {
-//   // return new Promise((resolve, reject) => {
-//   //   /* get provided config */
-//   //   webpackRenderer(env).then(rendererConfig => {
-//   //     /* add `raw-loader` */
-//   //     rendererConfig.module.rules.push({
-//   //       test: /\.txt$/,
-//   //       use: 'raw-loader'
-//   //     })
-//   //     /* return modified config to webpack */
-//   //     resolve(rendererConfig)
-//   //   })
-//   // })
-// };
+module.exports = (config) => {
+  const testCssRule = rule => rule.test.toString().match(/css|less|s\(\[ac\]\)ss/);
+
+  const styleRules = config.module.rules.filter(testCssRule);
+
+  styleRules.forEach((rule) => {
+    const cssRule = rule;
+    const cssLoader = cssRule.use.find(use => use.loader === 'css-loader');
+
+    // disable class obsfucation
+    cssLoader.options.modules = false;
+  });
+
+  return config;
+};

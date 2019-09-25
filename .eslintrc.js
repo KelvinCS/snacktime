@@ -15,7 +15,10 @@ module.exports = {
   },
 
   rules: {
+    // 'max-len': ['warn', { code: 80 }],
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
-    'import/no-extraneous-dependencies': 'off'
+    'import/no-extraneous-dependencies': 'off',
+    'class-methods-use-this': 'off',
+    'import/prefer-default-export': 'off',
   },
 };

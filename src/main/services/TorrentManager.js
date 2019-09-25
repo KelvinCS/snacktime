@@ -1,12 +1,12 @@
 import Webtorrent from 'webtorrent';
 
 class TorrentManager extends Webtorrent {
+  /**
+   * Add torrent and waits for the metadata
+   * @param {*} torrent
+   */
   addAsync(torrent: string): Promise<Webtorrent.Torrent> {
-    return new Promise((resolve) => {
-      const torrentFile = this.add(torrent);
-
-      torrentFile.on('ready', () => resolve(torrentFile));
-    });
+    return new Promise(resolve => this.add(torrent, {}, resolve));
   }
 }
 

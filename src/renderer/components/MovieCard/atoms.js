@@ -9,7 +9,6 @@ const Banner = styled.img`
   width: 100%;
   object-fit: cover;
   border-radius: 6px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
   transition: all 0.2s ease-out;
 
   &:hover {
@@ -18,7 +17,7 @@ const Banner = styled.img`
 `;
 
 const Title = styled.h1`
-  font-size: 14px;
+  font-size: 12px;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
