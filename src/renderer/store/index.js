@@ -6,13 +6,14 @@ import { connectRouter, routerMiddleware } from 'connected-react-router';
 import { createBrowserHistory } from 'history';
 import { getStore } from 'kea';
 import sagaPlugin from 'kea-saga';
+import { when, pathEq } from 'ramda';
 
 export const history = createBrowserHistory();
 
+const sendToMain = action => ipcRenderer.send('redux-event', action);
+
 const ipcBridge = () => next => async (action) => {
-  if (action.meta && action.meta.toMain) {
-    ipcRenderer.send('redux-event', action);
-  }
+  when(pathEq(['meta', 'toMain'], true), sendToMain)(action);
 
   return next(action);
 };
