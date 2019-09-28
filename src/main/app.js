@@ -1,6 +1,8 @@
 /* eslint-disable no-console */
-/* eslint-disable import/prefer-default-export */
 import { BrowserWindow } from 'electron';
+import {
+  cond, pathEq, T, partial,
+} from 'ramda';
 import StreamServer from './services/StreamServer';
 import TorrentManager from './services/TorrentManager';
 import RendererBridge from './services/RendererBridge';
@@ -21,29 +23,19 @@ async function runMedia(magnetURL) {
   rendererBridge.dispatch({ type: 'MEDIA_READY' });
 }
 
-const actionHandlers = {
-  RUN_MEDIA: ({ url }) => runMedia(url),
-  DEFAULT: () => console.log('Ação não encontrada'),
-};
+const actionRunMedia = ({ payload }) => runMedia(payload.url);
 
-function getActionHandler(action) {
-  const handler = actionHandlers[action.type];
+const actionOfType = pathEq('type');
 
-  if (!handler) {
-    return actionHandlers.DEFAULT;
-  }
-
-  return handler;
-}
+const handleAction = cond([
+  [actionOfType('RUN_MEDIA'), actionRunMedia],
+  [T, partial(console.log, ['Ação não encontrada'])],
+]);
 
 function startBackend(mainWindow: BrowserWindow) {
   rendererBridge = new RendererBridge(mainWindow);
 
-  rendererBridge.reduxEvent.subscribe((action) => {
-    const actionHandler = getActionHandler(action);
-
-    actionHandler(action.payload);
-  });
+  rendererBridge.reduxEvent.subscribe(handleAction);
 }
 
 export { startBackend };
