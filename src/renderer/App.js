@@ -4,6 +4,7 @@ import { ConnectedRouter } from 'connected-react-router';
 import { hot } from 'react-hot-loader/root';
 import { ThemeProvider } from 'styled-components';
 import Home from './pages/Home';
+import Player from './pages/Player';
 
 import theme from './theme';
 

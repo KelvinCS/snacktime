@@ -1,6 +1,6 @@
 import React from 'react';
-import Grid from '../Grid';
-import MovieCard from '../MovieCard';
+import Grid from '../../components/Grid';
+import MovieCard from '../../components/MovieCard';
 import { MovieInfo, ShowInfo, AnimeInfo } from '../../config/types';
 
 type Props = {

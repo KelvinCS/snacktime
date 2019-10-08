@@ -1,4 +1,7 @@
 import React from 'react';
+import {
+  cond, complement, isEmpty, partial,
+} from 'ramda';
 import ImagePalette from '../ImagePalette';
 
 import {
@@ -12,24 +15,32 @@ type Props = {
   onClick?: () => void,
 };
 
-// const getBoxShadow = (r, g, b) => `0 10px 25px rgba(${r}, ${g}, ${b}, 0.3)`;
+const getBoxShadow = (r, g, b) => `0 10px 25px rgba(${r}, ${g}, ${b}, 0.3)`;
 
 function getPaletteBoxShadow(palette) {
-  if (palette.Vibrant) {
-    // const { r, g, b } = palette.Vibrant;
-    // return getBoxShadow(r, g, b);
-  }
-  // return getBoxShadow(0, 0, 0);
+  const bindRGB = fn => ({ r, g, b }) => fn(r, g, b);
+
+  return cond([
+    [complement(isEmpty), bindRGB(getBoxShadow)],
+    [isEmpty, partial(getBoxShadow, [0, 0, 0])],
+  ])(palette.Vibrant);
 }
+
+type BannerProps = {
+  cover: string,
+  palette: any,
+};
+const BannerWithShadow = ({ cover, palette }: BannerProps) => (
+  <Banner src={cover} style={{ boxShadow: getPaletteBoxShadow(palette) }} />
+);
 
 const MovieCard = ({
   onClick, cover, title, year,
 }: Props) => (
   <Container onClick={onClick}>
     <ImagePalette src={cover}>
-      {({ palette }) => <Banner src={cover} style={{ boxShadow: getPaletteBoxShadow(palette) }} />}
+      <BannerWithShadow cover={cover}></BannerWithShadow>
     </ImagePalette>
-
     <Title>{title}</Title>
     <Year>{year}</Year>
   </Container>
